@@ -1,0 +1,12 @@
+{
+  "test": {
+    "PORT": 3001,
+    "MONGODB_URI": "mongodb://corrortiz:calixio2106@ds217921.mlab.com:17921/seccion35",
+    "JWT_SECRET": "poijasdf98435jpgfdpoij3"
+  },
+  "development": {
+    "PORT": 3001,
+    "MONGODB_URI": "mongodb://corrortiz:calixio2106@ds217921.mlab.com:17921/seccion35",
+    "JWT_SECRET": "pojiaj234oi234oij234oij4"
+  }
+}
