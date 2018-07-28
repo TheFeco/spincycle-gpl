@@ -7,7 +7,7 @@ const schemaSchedules = new Schema({
   hour: String,
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
 
-  created: { type: Date },
+  created: Date
 });
 
 const Schedules = mongoose.model('schedules', schemaSchedules);

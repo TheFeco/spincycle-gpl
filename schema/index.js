@@ -9,6 +9,8 @@ const typeDefs = `
     schedulesByDay(day: String): [Schedules]
 
     allPlans: [Plans]
+
+    allCoachs: [Coachs]
   }
 
   type Schedules {
@@ -25,6 +27,16 @@ const typeDefs = `
     name: String,
     price: Float,
     class: Int,
+    status: String,
+    created: Date
+  }
+
+  type Coachs {
+    id: ID
+    name: String,
+    gender: String,
+    review: String,
+    photo: String,
     status: String,
     created: Date
   }
@@ -46,6 +58,16 @@ const typeDefs = `
     status: String,
     created: Date
  }
+ 
+  input CoachsInput {
+    _id: ID
+    name: String,
+    gender: String,
+    review: String,
+    photo: String,
+    status: String,
+    created: Date
+  }
 
  type Mutation {
     addSchedules(data: SchedulesInput): Schedules
@@ -53,6 +75,9 @@ const typeDefs = `
     
     addPlans(data: PlansInput): Plans
     modifyPlans(data: PlansInput, id: ID!): Plans
+    
+    addCoachs(data: CoachsInput): Coachs
+    modifyCoachs(data: CoachsInput, id: ID!): Coachs
  }
 `;
 

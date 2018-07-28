@@ -7,7 +7,7 @@ const schemaPlans = new Schema({
   class: Number,
 
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
-  created: { type: Date },
+  created: Date
 });
 
 const Plans = mongoose.model('plans', schemaPlans);
