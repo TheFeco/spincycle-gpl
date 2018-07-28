@@ -21,4 +21,8 @@ module.exports = {
   findAll() {
     return Schedules.find({});
   },
+
+  findByDay(day) {
+    return Schedules.find({ day });
+  },
 };

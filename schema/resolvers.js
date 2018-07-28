@@ -1,18 +1,35 @@
 const SchedulesControler = require('./../controllers/SchedulesControler');
+const PlansControler = require('./../controllers/PlansControler');
 
 module.exports = {
   Query: {
+    /** Schedules */
     allSchedules: () => {
       return SchedulesControler.findAll();
     },
+    schedulesByDay: (_, { day }) => {
+      return SchedulesControler.findByDay(day);
+    },
+    /** Plans */
+    allPlans: (_, { day }) => {
+      return PlansControler.findByDay(day);
+    },
   },
   Mutation: {
+    /** Schedules */
     addSchedules: (_, { data }) => {
       return SchedulesControler.create(data);
     },
     modifySchedules: (_, { data, id }) => {
       return SchedulesControler.edit(id, data);
-    }
+    },
+    /** Plans */
+    addPlans: (_, { data }) => {
+      return PlansControler.create(data);
+    },
+    modifyPlans: (_, { data, id }) => {
+      return PlansControler.edit(id, data);
+    },
   },
   /* This code saves the scalar type os Date found in this thred
   https://github.com/graphql/graphql-js/issues/497
