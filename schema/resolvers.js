@@ -11,8 +11,8 @@ module.exports = {
       return SchedulesControler.findByDay(day);
     },
     /** Plans */
-    allPlans: (_, { day }) => {
-      return PlansControler.findByDay(day);
+    allPlans: () => {
+      return PlansControler.findAll();
     },
   },
   Mutation: {
