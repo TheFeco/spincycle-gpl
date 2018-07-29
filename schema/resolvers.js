@@ -2,6 +2,7 @@ const SchedulesControler = require('./../controllers/SchedulesControler');
 const PlansControler = require('./../controllers/PlansControler');
 const CoachsControler = require('./../controllers/CoachsControler');
 const UsersControler = require('./../controllers/UsersControler');
+const CalendarControler = require('./../controllers/CalendarController');
 
 module.exports = {
   Query: {
@@ -26,7 +27,17 @@ module.exports = {
     },
     allUsers: () => {
       return UsersControler.findAll();
-    }
+    },
+    /** Calendar */
+    allCalendars: () => {
+      return CalendarControler.findAll();
+    },
+    allCalendarBySchedules: (_, { schedulesId }) => {
+      return CalendarControler.findAllBySchedules(schedulesId);
+    },
+    allCalendarByCoachs: (_, { coachsID }) => {
+      return CalendarControler.findAllByCoachs(coachsID);
+    },
   },
   Mutation: {
     /** Schedules */
@@ -56,6 +67,13 @@ module.exports = {
     },
     modifyUsers: (_, { data, id }) => {
       return UsersControler.edit(id, data);
+    },
+    /** Calendar */
+    addCalendar: (_, { data }) => {
+      return CalendarControler.create(data);
+    },
+    modifyCalendar: (_, { data, id }) => {
+      return CalendarControler.edit(id, data);
     },
   },
   /* This code saves the scalar type os Date found in this thred

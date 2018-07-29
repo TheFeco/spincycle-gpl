@@ -11,7 +11,7 @@ const schemaCoachs = new Schema({
   created: Date,
 });
 
-const Coachs = mongoose.model('coachs', schemaCoachs);
+const Coachs = mongoose.model('coach', schemaCoachs);
 
 module.exports = Coachs;
 

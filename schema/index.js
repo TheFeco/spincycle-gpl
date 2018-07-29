@@ -15,6 +15,9 @@ const typeDefs = `
     allUsers: [Users]
     login(credentials: CredentialsInput): UserJWT!
       
+    allCalendars: [Calendar]
+    allCalendarBySchedules(schedulesId: ID!): [Calendar]
+    allCalendarByCoachs(coachsID: ID!): [Calendar]
   }
 
   type Schedules {
@@ -57,6 +60,16 @@ const typeDefs = `
     created: Date
   }
 
+  type Calendar {
+    id: ID
+    name: String,
+    isOpen: Boolean,
+    schedule: Schedules,
+    coach: Coachs,
+    status: String,
+    created: Date
+  }
+
   type UserJWT {
     id: ID
     name: String
@@ -94,7 +107,7 @@ const typeDefs = `
   }
 
   input UsersInput {
-    id: ID
+    _id: ID
     name: String,
     lastName: String,
     phone: String,
@@ -110,6 +123,16 @@ const typeDefs = `
     password: String!
   }
 
+  input CalendarInput {
+    _id: ID
+    name: String,
+    isOpen: Boolean,
+    schedule: SchedulesInput,
+    coach: CoachsInput,
+    status: String,
+    created: Date
+  }
+
  type Mutation {
     addSchedules(data: SchedulesInput): Schedules
     modifySchedules(data: SchedulesInput, id: ID!): Schedules
@@ -122,6 +145,9 @@ const typeDefs = `
     
     addUsers(data: UsersInput): Users
     modifyUsers(data: UsersInput, id: ID!): Users
+    
+    addCalendar(data: CalendarInput): Calendar
+    modifyCalendar(data: CalendarInput, id: ID!): Calendar
  }
 `;
 
