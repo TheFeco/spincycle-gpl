@@ -1,6 +1,7 @@
 const SchedulesControler = require('./../controllers/SchedulesControler');
 const PlansControler = require('./../controllers/PlansControler');
 const CoachsControler = require('./../controllers/CoachsControler');
+const UsersControler = require('./../controllers/UsersControler');
 
 module.exports = {
   Query: {
@@ -19,6 +20,13 @@ module.exports = {
     allCoachs: () => {
       return CoachsControler.findAll();
     },
+    /** Users */
+    login: (_, { credentials }) => {
+      return UsersControler.login(credentials);
+    },
+    allUsers: () => {
+      return UsersControler.findAll();
+    }
   },
   Mutation: {
     /** Schedules */
@@ -41,6 +49,13 @@ module.exports = {
     },
     modifyCoachs: (_, { data, id }) => {
       return CoachsControler.edit(id, data);
+    },
+    /** Users */
+    addUsers: (_, { data }) => {
+      return UsersControler.create(data);
+    },
+    modifyUsers: (_, { data, id }) => {
+      return UsersControler.edit(id, data);
     },
   },
   /* This code saves the scalar type os Date found in this thred
