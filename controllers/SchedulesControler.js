@@ -19,7 +19,7 @@ module.exports = {
   },
 
   findAll() {
-    return Schedules.find({});
+    return Schedules.find({ status: { $ne: 'DELETED' } });
   },
 
   findByDay(day) {

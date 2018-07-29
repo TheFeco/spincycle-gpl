@@ -19,6 +19,6 @@ module.exports = {
   },
 
   findAll() {
-    return Plans.find({});
+    return Plans.find({ status: { $ne: 'DELETED' } });
   },
 };

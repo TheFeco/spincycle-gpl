@@ -22,7 +22,7 @@ module.exports = {
   },
 
   findAll() {
-    return Users.find({});
+    return Users.find({ status: { $ne: 'DELETED' } });
   },
 
   login(credentials) {

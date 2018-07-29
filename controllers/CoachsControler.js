@@ -19,6 +19,6 @@ module.exports = {
   },
 
   findAll() {
-    return Coachs.find({});
+    return Coachs.find({ status: { $ne: 'DELETED' } });
   },
 };

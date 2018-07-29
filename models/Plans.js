@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+
 const schemaPlans = new Schema({
   name: String,
   price: Number,
