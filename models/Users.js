@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
 
 const schemaUsers = new Schema({
+  user: String,
   name: String,
   lastName: String,
   phone: String,
   type: { type: String, enum: ['ADMIN', 'CLIENT'], default: 'CLIENT' },
-  user: String,
   password: String,
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
   created: Date,

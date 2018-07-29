@@ -18,6 +18,10 @@ const typeDefs = `
     allCalendars: [Calendar]
     allCalendarBySchedules(schedulesId: ID!): [Calendar]
     allCalendarByCoachs(coachsID: ID!): [Calendar]
+    
+    allSchedulesBoughts: [SchedulesBoughts]
+    allSchedulesBoughtsByUser(userId: ID!): [SchedulesBoughts]
+    allSchedulesBoughtsByPlan(planID: ID!): [SchedulesBoughts]
   }
 
   type Schedules {
@@ -66,6 +70,18 @@ const typeDefs = `
     isOpen: Boolean,
     schedule: Schedules,
     coach: Coachs,
+    status: String,
+    created: Date
+  }
+
+  type SchedulesBoughts {
+    id: ID
+    date: Date,
+    prince: Float,
+    quantity: Int,
+    availables: Int,
+    user: Users,
+    plan: Plans,
     status: String,
     created: Date
   }
@@ -133,6 +149,18 @@ const typeDefs = `
     created: Date
   }
 
+  input SchedulesBoughtsInput {
+    _id: ID
+    date: Date,
+    prince: Float,
+    quantity: Int,
+    availables: Int,
+    user: UsersInput,
+    plan: PlansInput,
+    status: String,
+    created: Date
+  }
+
  type Mutation {
     addSchedules(data: SchedulesInput): Schedules
     modifySchedules(data: SchedulesInput, id: ID!): Schedules
@@ -148,6 +176,9 @@ const typeDefs = `
     
     addCalendar(data: CalendarInput): Calendar
     modifyCalendar(data: CalendarInput, id: ID!): Calendar
+    
+    addSchedulesBoughts(data: SchedulesBoughtsInput): SchedulesBoughts
+    modifySchedulesBoughts(data: SchedulesBoughtsInput, id: ID!): SchedulesBoughts
  }
 `;
 
