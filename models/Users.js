@@ -9,6 +9,7 @@ const schemaUsers = new Schema({
   lastName: String,
   phone: String,
   type: { type: String, enum: ['ADMIN', 'CLIENT'], default: 'CLIENT' },
+  suscriptions: [String],
   password: String,
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
   created: Date,

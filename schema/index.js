@@ -54,11 +54,12 @@ const typeDefs = `
 
   type Users {
     id: ID
+    user: String,
     name: String,
     lastName: String,
     phone: String,
     type: String,
-    user: String,
+    suscriptions: [String],
     password: String,
     status: String,
     created: Date
@@ -124,11 +125,12 @@ const typeDefs = `
 
   input UsersInput {
     _id: ID
+    user: String,
     name: String,
     lastName: String,
     phone: String,
     type: String,
-    user: String,
+    suscriptions: [String]
     password: String,
     status: String,
     created: Date
