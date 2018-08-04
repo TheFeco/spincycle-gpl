@@ -22,6 +22,9 @@ const typeDefs = `
     allSchedulesBoughts: [SchedulesBoughts]
     allSchedulesBoughtsByUser(userId: ID!): [SchedulesBoughts]
     allSchedulesBoughtsByPlan(planID: ID!): [SchedulesBoughts]
+    
+    allNotifications: [Notifications]
+    allNotificationsByUser(userId: ID!): [Notifications]
   }
 
   type Schedules {
@@ -83,6 +86,16 @@ const typeDefs = `
     availables: Int,
     user: Users,
     plan: Plans,
+    status: String,
+    created: Date
+  }
+
+  type Notifications {
+    id: ID,
+    message: String,
+    title: String,
+    user: Users,
+    type: String,
     status: String,
     created: Date
   }
@@ -163,6 +176,16 @@ const typeDefs = `
     created: Date
   }
 
+  input NotificationsInput {
+    _id: ID,
+    message: String,
+    title: String,
+    user: UsersInput,
+    type: String,
+    status: String,
+    created: Date
+  }
+
  type Mutation {
     addSchedules(data: SchedulesInput): Schedules
     modifySchedules(data: SchedulesInput, id: ID!): Schedules
@@ -181,6 +204,9 @@ const typeDefs = `
     
     addSchedulesBoughts(data: SchedulesBoughtsInput): SchedulesBoughts
     modifySchedulesBoughts(data: SchedulesBoughtsInput, id: ID!): SchedulesBoughts
+    
+    addNotification(data: NotificationsInput): Notifications
+    modifyNotification(data: NotificationsInput, id: ID!): Notifications
  }
 `;
 
