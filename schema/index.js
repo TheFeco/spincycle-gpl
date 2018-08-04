@@ -25,6 +25,9 @@ const typeDefs = `
     
     allNotifications: [Notifications]
     allNotificationsByUser(userId: ID!): [Notifications]
+    
+    allReservations: [Reservations]
+    allReservationsByUser(userId: ID!): [Reservations]
   }
 
   type Schedules {
@@ -96,6 +99,16 @@ const typeDefs = `
     title: String,
     user: Users,
     type: String,
+    status: String,
+    created: Date
+  }
+
+  type Reservations {
+    id: ID,
+    day: Date,
+    canceledDate: Date,
+    user: Users,
+    bike: Int,
     status: String,
     created: Date
   }
@@ -186,6 +199,16 @@ const typeDefs = `
     created: Date
   }
 
+  input ReservationsInput {
+    _id: ID,
+    day: Date,
+    canceledDate: Date,
+    user: UsersInput,
+    bike: Int,
+    status: String,
+    created: Date
+  }
+
  type Mutation {
     addSchedules(data: SchedulesInput): Schedules
     modifySchedules(data: SchedulesInput, id: ID!): Schedules
@@ -207,6 +230,9 @@ const typeDefs = `
     
     addNotification(data: NotificationsInput): Notifications
     modifyNotification(data: NotificationsInput, id: ID!): Notifications
+    
+    addReservation(data: ReservationsInput): Reservations
+    modifyReservation(data: ReservationsInput, id: ID!): Notifications
  }
 `;
 
