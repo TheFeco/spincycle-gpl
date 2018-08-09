@@ -3,21 +3,21 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schemaCalendar = new Schema({
-  name: String,
-  isOpen: Boolean,
+  isOpen: { type: Boolean, default: true },
+  dateOfCalendar: Date,
   schedule: {
     type: Schema.Types.ObjectId,
-    ref: 'schedule'
+    ref: 'schedules'
   },
   coach: {
     type: Schema.Types.ObjectId,
-    ref: 'coach'
+    ref: 'coachs',
+    default: null
   },
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
-  created: Date,
+  created: Date
 });
 
 const Calendar = mongoose.model('calendar', schemaCalendar);
 
 module.exports = Calendar;
-

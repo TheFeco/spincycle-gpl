@@ -64,7 +64,7 @@ module.exports = {
     },
     allReservationsByUser: (_, { userId }) => {
       return ReservationsController.findAllByUser(userId);
-    },
+    }
   },
   Mutation: {
     /** Schedules */
@@ -102,6 +102,9 @@ module.exports = {
     modifyCalendar: (_, { data, id }) => {
       return CalendarControler.edit(id, data);
     },
+    createWeek: (_, { data }) => {
+      return CalendarControler.createWeek(data);
+    },
     /** SchedulesBoughts */
     addSchedulesBoughts: (_, { data }) => {
       return SchedulesBoughtsContoler.create(data);
@@ -122,7 +125,7 @@ module.exports = {
     },
     modifyReservation: (_, { data, id }) => {
       return ReservationsController.edit(id, data);
-    },
+    }
   },
   /* This code saves the scalar type os Date found in this thred
   https://github.com/graphql/graphql-js/issues/497
@@ -141,6 +144,6 @@ module.exports = {
       }
       /* eslint-enable */
       return null;
-    },
-  },
+    }
+  }
 };

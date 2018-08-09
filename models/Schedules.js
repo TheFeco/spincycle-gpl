@@ -10,7 +10,6 @@ const schemaSchedules = new Schema({
   created: Date
 });
 
-const Schedules = mongoose.model('user', schemaSchedules);
+const Schedules = mongoose.model('schedules', schemaSchedules);
 
 module.exports = Schedules;
-

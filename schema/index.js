@@ -73,8 +73,8 @@ const typeDefs = `
 
   type Calendar {
     id: ID
-    name: String,
     isOpen: Boolean,
+    dateOfCalendar: Date
     schedule: Schedules,
     coach: Coachs,
     status: String,
@@ -209,6 +209,11 @@ const typeDefs = `
     created: Date
   }
 
+  input objectsOfDates {
+    day: String
+    date: Date
+  }
+
  type Mutation {
     addSchedules(data: SchedulesInput): Schedules
     modifySchedules(data: SchedulesInput, id: ID!): Schedules
@@ -224,6 +229,7 @@ const typeDefs = `
     
     addCalendar(data: CalendarInput): Calendar
     modifyCalendar(data: CalendarInput, id: ID!): Calendar
+    createWeek(data: [objectsOfDates]): Boolean
     
     addSchedulesBoughts(data: SchedulesBoughtsInput): SchedulesBoughts
     modifySchedulesBoughts(data: SchedulesBoughtsInput, id: ID!): SchedulesBoughts

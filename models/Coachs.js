@@ -8,10 +8,9 @@ const schemaCoachs = new Schema({
   review: String,
   photo: String,
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
-  created: Date,
+  created: Date
 });
 
-const Coachs = mongoose.model('plan', schemaCoachs);
+const Coachs = mongoose.model('coachs', schemaCoachs);
 
 module.exports = Coachs;
-
