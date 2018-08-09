@@ -49,7 +49,6 @@ module.exports = {
       .exec();
   },
   findAllBySchedulesAndDate(schedulesId, date) {
-    console.log('date', date)
     return Calendar.findOne({
       schedule: schedulesId,
       dateOfCalendar: date
@@ -97,5 +96,10 @@ module.exports = {
     });
 
     return true;
-  }
+  },
+  findAllSchedulesByWeek(initialDate, finishDate) {
+    return Calendar.find({
+      date: { $gte: initialDate, $lte: finishDate }
+    }).exec().then(schedule => schedule ? true : false);
+  },
 };
