@@ -52,7 +52,9 @@ module.exports = {
     return Calendar.findOne({
       schedule: schedulesId,
       dateOfCalendar: date
-    }).exec().then(schedule => schedule ? true : false);
+    })
+      .exec()
+      .then(schedule => (schedule ? true : false));
   },
   findAllByCoachs(coachsID) {
     return Calendar.find({ coach: coachsID, status: { $ne: 'DELETED' } })
@@ -81,15 +83,13 @@ module.exports = {
       SchedulesControler.findByDay(day)
         .then(schedules => {
           schedules.forEach(schedule => {
-            this.findAllBySchedulesAndDate(schedule.id, date.date).then(
-              existingSchedule => {
-                if (!existingSchedule) {
-                  defaultObject.dateOfCalendar = date.date;
-                  defaultObject.schedule._id = schedule.id;
-                  this.create(defaultObject);
-                }
+            this.findAllBySchedulesAndDate(schedule.id, date.date).then(existingSchedule => {
+              if (!existingSchedule) {
+                defaultObject.dateOfCalendar = date.date;
+                defaultObject.schedule._id = schedule.id;
+                this.create(defaultObject);
               }
-            );
+            });
           });
         })
         .catch(() => false);
@@ -99,7 +99,11 @@ module.exports = {
   },
   findAllSchedulesByWeek(initialDate, finishDate) {
     return Calendar.find({
-      date: { $gte: initialDate, $lte: finishDate }
-    }).exec().then(schedule => schedule ? true : false);
-  },
+      dateOfCalendar: { $gte: initialDate, $lte: finishDate }
+    })
+      .populate('schedule')
+      .populate('coach')
+      .populate('reservations')
+      .exec();
+  }
 };
