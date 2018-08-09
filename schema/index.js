@@ -18,6 +18,7 @@ const typeDefs = `
     allCalendars: [Calendar]
     allCalendarBySchedules(schedulesId: ID!): [Calendar]
     allCalendarByCoachs(coachsID: ID!): [Calendar]
+    findAllSchedulesByWeek(initialDate: Date, finishDate: Date): [Calendar]
     
     allSchedulesBoughts: [SchedulesBoughts]
     allSchedulesBoughtsByUser(userId: ID!): [SchedulesBoughts]

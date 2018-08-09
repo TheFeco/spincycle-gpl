@@ -41,6 +41,9 @@ module.exports = {
     allCalendarByCoachs: (_, { coachsID }) => {
       return CalendarControler.findAllByCoachs(coachsID);
     },
+    findAllSchedulesByWeek: (_, { initialDate, finishDate }) => {
+      return CalendarControler.findAllSchedulesByWeek(initialDate, finishDate);
+    },
     /** SchedulesBoughts */
     allSchedulesBoughts: () => {
       return SchedulesBoughtsContoler.findAll();
