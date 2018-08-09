@@ -77,6 +77,7 @@ const typeDefs = `
     dateOfCalendar: Date
     schedule: Schedules,
     coach: Coachs,
+    reservations: [Reservations],
     status: String,
     created: Date
   }
@@ -173,6 +174,7 @@ const typeDefs = `
     isOpen: Boolean,
     schedule: SchedulesInput,
     coach: CoachsInput,
+    reservations: [ReservationsInput],
     status: String,
     created: Date
   }

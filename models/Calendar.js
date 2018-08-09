@@ -14,6 +14,12 @@ const schemaCalendar = new Schema({
     ref: 'coachs',
     default: null
   },
+  reservations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'reservations'
+    }
+  ],
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
   created: Date
 });
