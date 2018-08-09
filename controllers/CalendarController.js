@@ -49,11 +49,11 @@ module.exports = {
       .exec();
   },
   findAllBySchedulesAndDate(schedulesId, date) {
-    return Calendar.find({
-      schedules: schedulesId,
-      dateOfCalendar: date,
-      status: { $ne: 'DELETED' }
-    }).exec();
+    console.log('date', date)
+    return Calendar.findOne({
+      schedule: schedulesId,
+      dateOfCalendar: date
+    }).exec().then(schedule => schedule ? true : false);
   },
   findAllByCoachs(coachsID) {
     return Calendar.find({ coach: coachsID, status: { $ne: 'DELETED' } })
@@ -82,7 +82,7 @@ module.exports = {
       SchedulesControler.findByDay(day)
         .then(schedules => {
           schedules.forEach(schedule => {
-            this.findAllBySchedulesAndDate(schedule.id, schedule.dateOfCalendar).then(
+            this.findAllBySchedulesAndDate(schedule.id, date.date).then(
               existingSchedule => {
                 if (!existingSchedule) {
                   defaultObject.dateOfCalendar = date.date;
