@@ -51,7 +51,8 @@ module.exports = {
   findAllBySchedulesAndDate(schedulesId, date) {
     return Calendar.findOne({
       schedule: schedulesId,
-      dateOfCalendar: date
+      dateOfCalendar: date,
+      status: { $ne: 'DELETED' }
     })
       .exec()
       .then(schedule => (schedule ? true : false));
@@ -104,6 +105,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .sort('dateOfCalendar')
       .exec();
   }
 };
