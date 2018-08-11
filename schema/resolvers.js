@@ -26,6 +26,7 @@ module.exports = {
     },
     /** Users */
     login: (_, { credentials }) => {
+      console.log('credentials', credentials)
       return UsersControler.login(credentials);
     },
     allUsers: () => {

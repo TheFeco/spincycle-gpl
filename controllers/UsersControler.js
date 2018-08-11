@@ -27,25 +27,30 @@ module.exports = {
 
   login(credentials) {
     return Users.findOne({ user: credentials.user }).then((user) => {
-      return bcrypt.compare(credentials.password, user.password).then((isMatch) => {
-        return new Promise((resolve, reject) => {
-          if (isMatch === false) {
-            reject(new Error('no el password'));
-          }
-
-          const token = jwt.sign(
-            {
-              user: _.pick(user, ['_id', 'name', 'type', 'user'])
-            },
-            process.env.JWT_SECRET,
-            {
-              expiresIn: '30d'
+      if (user) {
+        return bcrypt.compare(credentials.password, user.password).then((isMatch) => {
+          return new Promise((resolve, reject) => {
+            if (isMatch === false) {
+              reject(new Error('no el password'));
             }
-          );
-          user.jwt = token;
-          resolve(user);
-        }).catch(error => new Error(error));
-      });
+
+            const token = jwt.sign(
+              {
+                user: _.pick(user, ['_id', 'name', 'type', 'user'])
+              },
+              process.env.JWT_SECRET,
+              {
+                expiresIn: '30d'
+              }
+            );
+            user.jwt = token;
+            resolve(user);
+          }).catch(error => new Error(error));
+        });
+      }
+      else {
+        return { data: null }
+      }
     });
   }
 };
