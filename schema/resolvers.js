@@ -26,7 +26,7 @@ module.exports = {
     },
     /** Users */
     login: (_, { credentials }) => {
-      console.log('credentials', credentials)
+      console.log('credentials', credentials);
       return UsersControler.login(credentials);
     },
     allUsers: () => {
@@ -129,6 +129,11 @@ module.exports = {
     },
     modifyReservation: (_, { data, id }) => {
       return ReservationsController.edit(id, data);
+    }
+  },
+  Reservations: {
+    user: (reservations) => {
+      return UsersControler.find(reservations.user);
     }
   },
   /* This code saves the scalar type os Date found in this thred
