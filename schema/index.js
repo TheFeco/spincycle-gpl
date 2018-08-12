@@ -3,7 +3,7 @@ const resolvers = require('./resolvers');
 
 const typeDefs = `
   scalar Date
- 
+
   type Query {
     allSchedules: [Schedules]
     schedulesByDay(day: String): [Schedules]
@@ -14,19 +14,19 @@ const typeDefs = `
 
     allUsers: [Users]
     login(credentials: CredentialsInput): UserJWT!
-      
+
     allCalendars: [Calendar]
     allCalendarBySchedules(schedulesId: ID!): [Calendar]
     allCalendarByCoachs(coachsID: ID!): [Calendar]
     findAllSchedulesByWeek(initialDate: Date, finishDate: Date): [Calendar]
-    
+
     allSchedulesBoughts: [SchedulesBoughts]
     allSchedulesBoughtsByUser(userId: ID!): [SchedulesBoughts]
     allSchedulesBoughtsByPlan(planID: ID!): [SchedulesBoughts]
-    
+
     allNotifications: [Notifications]
     allNotificationsByUser(userId: ID!): [Notifications]
-    
+
     allReservations: [Reservations]
     allReservationsByUser(userId: ID!): [Reservations]
   }
@@ -140,7 +140,7 @@ const typeDefs = `
     status: String,
     created: Date
  }
- 
+
   input CoachsInput {
     _id: ID
     name: String,
@@ -220,28 +220,28 @@ const typeDefs = `
  type Mutation {
     addSchedules(data: SchedulesInput): Schedules
     modifySchedules(data: SchedulesInput, id: ID!): Schedules
-    
+
     addPlans(data: PlansInput): Plans
     modifyPlans(data: PlansInput, id: ID!): Plans
-    
+
     addCoachs(data: CoachsInput): Coachs
     modifyCoachs(data: CoachsInput, id: ID!): Coachs
-    
+
     addUsers(data: UsersInput): Users
     modifyUsers(data: UsersInput, id: ID!): Users
-    
+
     addCalendar(data: CalendarInput): Calendar
     modifyCalendar(data: CalendarInput, id: ID!): Calendar
     createWeek(data: [objectsOfDates]): Boolean
-    
+
     addSchedulesBoughts(data: SchedulesBoughtsInput): SchedulesBoughts
     modifySchedulesBoughts(data: SchedulesBoughtsInput, id: ID!): SchedulesBoughts
-    
+
     addNotification(data: NotificationsInput): Notifications
     modifyNotification(data: NotificationsInput, id: ID!): Notifications
-    
-    addReservation(data: ReservationsInput): Reservations
-    modifyReservation(data: ReservationsInput, id: ID!): Notifications
+
+    addReservation(data: ReservationsInput, calendarId: ID!): Calendar
+    modifyReservation(id: ID!, data: ReservationsInput, calendarId: ID!, reservationsList: [ReservationsInput]): Notifications
  }
 `;
 
