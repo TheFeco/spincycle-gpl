@@ -31,7 +31,8 @@ module.exports = {
   findAll() {
     return SchedulesBoughts.find({ status: { $ne: 'DELETED' } })
       .populate('user')
-      .populate('plan') 
+      .populate('plan')
+      .sort({ date: 'desc' })
       .exec();
   },
   findAllByUser(userId) {
