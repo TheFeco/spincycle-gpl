@@ -10,6 +10,7 @@ module.exports = {
         .populate('schedule')
         .populate('coach')
         .populate('reservations')
+        .populate('user')
         .exec()
     );
   },
@@ -18,6 +19,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('user')
       .exec();
   },
   edit(_id, calendarProps) {
@@ -25,6 +27,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('user')
       .exec();
   },
   find(_id) {
@@ -32,6 +35,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('user')
       .exec();
   },
   findAll() {
@@ -39,6 +43,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('reservations.user')
       .exec();
   },
   findAllBySchedules(schedulesId) {
@@ -46,13 +51,14 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('user')
       .exec();
   },
   findAllBySchedulesAndDate(schedulesId, date) {
     return Calendar.findOne({
       schedule: schedulesId,
       dateOfCalendar: date,
-      status: { $ne: 'DELETED' }
+      status: { $ne: 'DELETED' }
     })
       .exec()
       .then(schedule => (schedule ? true : false));
@@ -62,6 +68,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('user')
       .exec();
   },
   findAllReservations(reservationsID) {
@@ -69,6 +76,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('user')
       .exec();
   },
   createWeek(objectsOfDates) {
@@ -105,6 +113,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
+      .populate('user')
       .sort('dateOfCalendar')
       .exec();
   }

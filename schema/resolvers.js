@@ -31,7 +31,7 @@ module.exports = {
     },
     /** Users */
     login: (_, { credentials }) => {
-      console.log('credentials', credentials)
+      console.log('credentials', credentials);
       return UsersControler.login(credentials);
     },
     allUsers: () => {
@@ -141,6 +141,11 @@ module.exports = {
   Subscription: {
     newNotification: {
       subscribe: () => pubsub.asyncIterator(topics.NEW_NOTIFICATION)
+    }
+  },
+  Reservations: {
+    user: (reservations) => {
+      return UsersControler.find(reservations.user);
     }
   },
   /* This code saves the scalar type os Date found in this thred
