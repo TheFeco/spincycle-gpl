@@ -1,3 +1,6 @@
+const { PubSub } = require('graphql-subscriptions');
+const pubsub = new PubSub();
+
 const SchedulesControler = require('./../controllers/SchedulesControler');
 const PlansControler = require('./../controllers/PlansControler');
 const CoachsControler = require('./../controllers/CoachsControler');
@@ -6,6 +9,8 @@ const CalendarControler = require('./../controllers/CalendarController');
 const SchedulesBoughtsContoler = require('./../controllers/SchedulesBoughtsController');
 const NotificationsController = require('./../controllers/NotificationsController');
 const ReservationsController = require('./../controllers/ReservationsController');
+
+const topics = require('./subscription_topics')
 
 module.exports = {
   Query: {
@@ -118,7 +123,9 @@ module.exports = {
     },
     /** Notifications */
     addNotification: (_, { data }) => {
+      pubsub.publish(topics.NEW_NOTIFICATION, {newNotification: data})
       return NotificationsController.create(data);
+
     },
     modifyNotification: (_, { data, id }) => {
       return NotificationsController.edit(id, data);
@@ -129,6 +136,11 @@ module.exports = {
     },
     modifyReservation: (_, { data, id }) => {
       return ReservationsController.edit(id, data);
+    }
+  },
+  Subscription: {
+    newNotification: {
+      subscribe: () => pubsub.asyncIterator(topics.NEW_NOTIFICATION)
     }
   },
   /* This code saves the scalar type os Date found in this thred

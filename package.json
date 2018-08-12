@@ -20,12 +20,14 @@
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
     "graphql": "^0.11.7",
+    "graphql-subscriptions": "^0.5.8",
     "graphql-tag": "^2.5.0",
     "graphql-tools": "^2.5.0",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.10",
     "mongodb": "^2.2.33",
-    "mongoose": "^4.12.2"
+    "mongoose": "^4.12.2",
+    "subscriptions-transport-ws": "^0.9.14"
   },
   "devDependencies": {
     "and": "^0.0.0",

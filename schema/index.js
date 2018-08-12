@@ -243,6 +243,10 @@ const typeDefs = `
     addReservation(data: ReservationsInput): Reservations
     modifyReservation(data: ReservationsInput, id: ID!): Notifications
  }
+
+ type Subscription {
+   newNotification: Notifications
+ }
 `;
 
 module.exports = makeExecutableSchema({
