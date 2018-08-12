@@ -241,7 +241,7 @@ const typeDefs = `
     modifyNotification(data: NotificationsInput, id: ID!): Notifications
     
     addReservation(data: ReservationsInput): Reservations
-    modifyReservation(data: ReservationsInput, id: ID!): Notifications
+    modifyReservation(data: ReservationsInput, id: ID!): Reservations
  }
 `;
 
