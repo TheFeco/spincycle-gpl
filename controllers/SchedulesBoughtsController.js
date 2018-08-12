@@ -16,8 +16,8 @@ module.exports = {
       .populate('plan')
       .exec();
   },
-  edit(_id, calendarProps) {
-    return SchedulesBoughts.findByIdAndUpdate({ _id }, calendarProps)
+  edit(_id, SchedulesBoughtsProps) {
+    return SchedulesBoughts.findByIdAndUpdate({ _id }, SchedulesBoughtsProps)
       .populate('user')
       .populate('plan')
       .exec();
@@ -36,7 +36,7 @@ module.exports = {
       .exec();
   },
   findAllByUser(userId) {
-    return SchedulesBoughts.find({ user: userId, status: { $ne: 'DELETED' } })
+    return SchedulesBoughts.find({ user: userId, status: { $ne: 'DELETED' }})
       .populate('user')
       .populate('plan')
       .exec();
