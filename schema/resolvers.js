@@ -134,11 +134,11 @@ module.exports = {
       return NotificationsController.edit(id, data);
     },
     /** Reservations */
-    addReservation: (_, { data }) => {
-      return ReservationsController.create(data);
+    addReservation: (_, { data, calendarId }) => {
+      return ReservationsController.create(data, calendarId);
     },
-    modifyReservation: (_, { data, id }) => {
-      return ReservationsController.edit(id, data);
+    modifyReservation: (_, { data, id, calendarId, reservationsList }) => {
+      return ReservationsController.edit(id, data, calendarId, reservationsList);
     }
   },
   Subscription: {
