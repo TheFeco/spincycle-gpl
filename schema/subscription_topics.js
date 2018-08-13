@@ -1,4 +1,4 @@
-const NEW_NOTIFICATION = 'newNotification'
+const NEW_NOTIFICATION = 'NEW_NOTIFICATION'
 
 module.exports = {
   NEW_NOTIFICATION

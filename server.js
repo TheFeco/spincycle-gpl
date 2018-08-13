@@ -35,12 +35,12 @@ app.use(
 
 app.use('/graphiql',  graphiqlExpress({
     endpointURL: '/graphql',
-    subscriptionsEndpoint: `ws://localhost:${port}/subscriptions`
+    subscriptionsEndpoint: `ws://localhost:${wsport}/subscriptions`
   })
 );
 
 const ws = createServer(app);
-ws.listen(port, () => {
+ws.listen(wsport, () => {
   console.log(`Go to http://localhost:${port}/graphql to run queries!`);
 
   new SubscriptionServer({

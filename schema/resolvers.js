@@ -123,8 +123,11 @@ module.exports = {
     },
     /** Notifications */
     addNotification: (_, { data }) => {
-      pubsub.publish(topics.NEW_NOTIFICATION, {newNotification: data})
-      return NotificationsController.create(data);
+      const item = NotificationsController.create(data).then(item => {
+        pubsub.publish(topics.NEW_NOTIFICATION, { newNotification: item })
+        return item
+      })
+      return item;
 
     },
     modifyNotification: (_, { data, id }) => {
@@ -140,7 +143,10 @@ module.exports = {
   },
   Subscription: {
     newNotification: {
-      subscribe: () => pubsub.asyncIterator(topics.NEW_NOTIFICATION)
+      subscribe: () =>{
+        console.log('subscription:')
+        return pubsub.asyncIterator([topics.NEW_NOTIFICATION])
+      }
     }
   },
   Reservations: {
