@@ -27,7 +27,7 @@ const typeDefs = `
     allNotifications: [Notifications]
     allNotificationsByUser(userId: ID!): [Notifications]
 
-    allReservations: [Reservations]
+    allReservations: [Calendar]
     allReservationsByUser(userId: ID!): [Reservations]
   }
 
@@ -35,6 +35,7 @@ const typeDefs = `
     id: ID
     day: String,
     order: String,
+    ampm: String,
     hour: String,
     status: String,
     created: Date
@@ -130,6 +131,7 @@ const typeDefs = `
     hour: String,
     status: String,
     created: Date
+    ampm: String
   }
 
  input PlansInput {

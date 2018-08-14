@@ -9,7 +9,7 @@ const schemaReservations = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  bike: { type: Number, enum: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+  bike: { type: Number, enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
   status: { type: String, enum: ['ACTIVE', 'CANCELED', 'DELETED'], default: 'ACTIVE' },
   created: Date,
 });
@@ -17,4 +17,3 @@ const schemaReservations = new Schema({
 const Reservations = mongoose.model('reservations', schemaReservations);
 
 module.exports = Reservations;
-
