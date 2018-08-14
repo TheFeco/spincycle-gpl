@@ -1,5 +1,7 @@
 /* eslint-disable */
 const Reservations = require('../models/Reservations');
+const Calendar = require('../models/Calendar');
+const Users = require('../models/Users');
 const CalendarController = require('./CalendarController');
 const SchedulesBoughtsController = require('./SchedulesBoughtsController');
 
@@ -42,9 +44,46 @@ module.exports = {
     return Reservations.findById(_id).exec();
   },
   findAll() {
-    return Reservations.find({ status: { $ne: 'DELETED' } }).exec();
+
+
+    return Calendar.find({ status: { $ne: 'DELETED' }, dateOfCalendar: { $gte: new Date() }}).exec()
+      // .populate('reservations')
+      // .populate('user')
+      // .exec()
+      // .then(response => {
+      //   var reservations = []
+      //   const _ = response.map((data) => {
+      //     console.log(data.reservations)
+      //     return [...reservations, ...data.reservations]
+      //   })
+      //
+      //   console.log(reservations)
+      // })
+    // return Reservations.find({ status: { $ne: 'DELETED' }, day: { $gte: new Date() }}).sort({ day: 'desc' }).exec();
   },
-  findAllBySchedules(userId) {
+  findAllByCalendar() {
+    Calendar.find({ status: { $ne: 'DELETED' }, dateOfCalendar: { $gte: new Date() }})
+    .populate('reservations')
+    .exec()
+
+    // , (error, data) => {
+    //   Reservations.populate(data, { path: 'reservations', select: { '_id': 1, 'day': 1, 'user': 1, 'bike': 1 }}, (error, data) => {
+    //     Users.populate(data, { path: 'reservations.user', select: { '_id':1, 'name':1 }}, (error, data) => {
+    //
+    //       var array = []
+    //       const reservations = data.map(item => {
+    //         return item.reservations.map(reservation => {
+    //           array.push(reservation)
+    //           return
+    //         })
+    //       })
+    //
+    //       return { data: array }
+    //     })
+    //   })
+    // })
+  },
+  findAllByUser(userId) {
     return Reservations.find({ user: userId, status: { $ne: 'DELETED' } }).exec();
   }
 };

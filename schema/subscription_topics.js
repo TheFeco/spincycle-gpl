@@ -1,0 +1,5 @@
+const NEW_NOTIFICATION = 'NEW_NOTIFICATION'
+
+module.exports = {
+  NEW_NOTIFICATION
+}
