@@ -245,6 +245,10 @@ const typeDefs = `
     addReservation(data: ReservationsInput, calendarId: ID!): Calendar
     modifyReservation(id: ID!, data: ReservationsInput, calendarId: ID!, reservationsList: [ReservationsInput]): Notifications
  }
+
+ type Subscription {
+   newNotification: Notifications
+ }
 `;
 
 module.exports = makeExecutableSchema({

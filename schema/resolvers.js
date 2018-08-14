@@ -1,3 +1,6 @@
+const { PubSub } = require('graphql-subscriptions');
+const pubsub = new PubSub();
+
 const SchedulesControler = require('./../controllers/SchedulesControler');
 const PlansControler = require('./../controllers/PlansControler');
 const CoachsControler = require('./../controllers/CoachsControler');
@@ -6,6 +9,8 @@ const CalendarControler = require('./../controllers/CalendarController');
 const SchedulesBoughtsContoler = require('./../controllers/SchedulesBoughtsController');
 const NotificationsController = require('./../controllers/NotificationsController');
 const ReservationsController = require('./../controllers/ReservationsController');
+
+const topics = require('./subscription_topics')
 
 module.exports = {
   Query: {
@@ -117,7 +122,12 @@ module.exports = {
     },
     /** Notifications */
     addNotification: (_, { data }) => {
-      return NotificationsController.create(data);
+      const item = NotificationsController.create(data).then(item => {
+        pubsub.publish(topics.NEW_NOTIFICATION, { newNotification: item })
+        return item
+      })
+      return item;
+
     },
     modifyNotification: (_, { data, id }) => {
       return NotificationsController.edit(id, data);
@@ -128,6 +138,14 @@ module.exports = {
     },
     modifyReservation: (_, { data, id, calendarId, reservationsList }) => {
       return ReservationsController.edit(id, data, calendarId, reservationsList);
+    }
+  },
+  Subscription: {
+    newNotification: {
+      subscribe: () =>{
+        console.log('subscription:')
+        return pubsub.asyncIterator([topics.NEW_NOTIFICATION])
+      }
     }
   },
   Reservations: {
