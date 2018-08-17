@@ -23,6 +23,6 @@ module.exports = {
   },
 
   findByDay(day) {
-    return Schedules.find({ day, status: { $ne: 'DELETED' } });
+    return Schedules.find({ day, status: 'ENABLE' });
   }
 };

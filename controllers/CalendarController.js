@@ -1,6 +1,7 @@
 /* eslint-disable */
 const Calendar = require('../models/Calendar');
 const SchedulesControler = require('./SchedulesControler');
+const moment = require('moment')
 
 module.exports = {
   create(calendarProps) {
@@ -60,11 +61,23 @@ module.exports = {
       dateOfCalendar: date,
       status: { $ne: 'DELETED' }
     })
-      .exec()
-      .then(schedule => (schedule ? true : false));
+    .exec()
+    .then(schedule => (schedule ? true : false));
+  },
+  findAllByCalendarId(calendarId) {
+    return Calendar.findOne({ _id: calendarId })
+    .exec();
   },
   findAllByCoachs(coachsID) {
     return Calendar.find({ coach: coachsID, status: { $ne: 'DELETED' } })
+      .populate('schedule')
+      .populate('coach')
+      .populate('reservations')
+      .populate('user')
+      .exec();
+  },
+  findAllById(calendarId) {
+    return Calendar.find({ _id: calendarId })
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
@@ -85,20 +98,25 @@ module.exports = {
       schedule: {
         _id: ''
       }
-    };
+    }
 
     objectsOfDates.forEach(date => {
       const day = date.day;
+      const lastDate = moment(date.date).subtract(7, 'days')
+
       SchedulesControler.findByDay(day)
         .then(schedules => {
           schedules.forEach(schedule => {
-            this.findAllBySchedulesAndDate(schedule.id, date.date).then(existingSchedule => {
-              if (!existingSchedule) {
-                defaultObject.dateOfCalendar = date.date;
-                defaultObject.schedule._id = schedule.id;
-                this.create(defaultObject);
-              }
-            });
+            Calendar.findOne({ schedule: schedule._id, dateOfCalendar: lastDate }, (error, calendar) => {
+              this.findAllBySchedulesAndDate(schedule.id, date.date).then(existingSchedule => {
+                if (!existingSchedule) {
+                  defaultObject.coach = { _id: calendar.coach }
+                  defaultObject.dateOfCalendar = date.date
+                  defaultObject.schedule._id = schedule.id
+                  this.create(defaultObject)
+                }
+              });
+            })
           });
         })
         .catch(() => false);

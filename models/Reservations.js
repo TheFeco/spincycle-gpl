@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schemaReservations = new Schema({
+  calendarId: {
+    type: Schema.Types.ObjectId,
+    ref: 'calendar'
+  },
   day: Date,
   canceledDate: Date,
   user: {

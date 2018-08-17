@@ -18,6 +18,7 @@ const typeDefs = `
     allCalendars: [Calendar]
     allCalendarBySchedules(schedulesId: ID!): [Calendar]
     allCalendarByCoachs(coachsID: ID!): [Calendar]
+    allCalendarById(calendarId: ID!): Calendar
     findAllSchedulesByWeek(initialDate: Date, finishDate: Date): [Calendar]
 
     allSchedulesBoughts: [SchedulesBoughts]
@@ -113,7 +114,8 @@ const typeDefs = `
     user: Users,
     bike: Int,
     status: String,
-    created: Date
+    created: Date,
+    calendarId: ID,
   }
 
   type UserJWT {
@@ -211,7 +213,8 @@ const typeDefs = `
     user: UsersInput,
     bike: Int,
     status: String,
-    created: Date
+    created: Date,
+    calendarId: ID,
   }
 
   input objectsOfDates {
