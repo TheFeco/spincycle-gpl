@@ -46,7 +46,7 @@ module.exports = {
   findAll() {
 
 
-    return Calendar.find({ status: { $ne: 'DELETED' }, dateOfCalendar: { $gte: new Date() }}).exec()
+    return Calendar.find({ status: { $ne: 'DELETED' }, dateOfCalendar: { $gt: new Date() }}).exec()
       // .populate('reservations')
       // .populate('user')
       // .exec()
