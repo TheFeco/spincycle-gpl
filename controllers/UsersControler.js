@@ -5,8 +5,15 @@ const _ = require('lodash');
 
 module.exports = {
   create(usersProps) {
-    const users = new Users(usersProps);
-    return users.save();
+    Users.findOne({ user: usersProps.user }).then(user => {
+      if (user === null) {
+        const users = new Users(usersProps);
+        users.save().then(user => { return { data: user }});
+      }
+      else {
+        return { data: user }
+      }
+    })
   },
 
   delete(_id) {
@@ -26,7 +33,7 @@ module.exports = {
   },
 
   login(credentials) {
-    return Users.findOne({ user: credentials.user }).then((user) => {
+    return Users.findOne({ user: credentials.user, status: 'ENABLE' }).then((user) => {
       if (user) {
         return bcrypt.compare(credentials.password, user.password).then((isMatch) => {
           return new Promise((resolve, reject) => {
