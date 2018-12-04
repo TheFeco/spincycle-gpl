@@ -47,6 +47,7 @@ const typeDefs = `
     name: String,
     price: Float,
     class: Int,
+    expiration: Int,
     status: String,
     created: Date
   }
@@ -82,7 +83,8 @@ const typeDefs = `
     coach: Coachs,
     reservations: [Reservations],
     status: String,
-    created: Date
+    created: Date,
+    subscriptions: [Users]
   }
 
   type SchedulesBoughts {
@@ -101,7 +103,7 @@ const typeDefs = `
     id: ID,
     message: String,
     title: String,
-    user: Users,
+    users: [Users],
     type: String,
     status: String,
     created: Date
@@ -141,6 +143,7 @@ const typeDefs = `
     name: String,
     price: Float,
     class: Int,
+    expiration: Int,
     status: String,
     created: Date
  }
@@ -181,7 +184,8 @@ const typeDefs = `
     coach: CoachsInput,
     reservations: [ReservationsInput],
     status: String,
-    created: Date
+    created: Date,
+    subscriptions: [UsersInput],
   }
 
   input SchedulesBoughtsInput {
@@ -200,7 +204,7 @@ const typeDefs = `
     _id: ID,
     message: String,
     title: String,
-    user: UsersInput,
+    users: [UsersInput],
     type: String,
     status: String,
     created: Date

@@ -1,5 +1,7 @@
 /* eslint-disable */
 const SchedulesBoughts = require('../models/SchedulesBoughts');
+const Plans = require('../models/Plans');
+const moment = require('moment')
 
 module.exports = {
   create(SchedulesBoughtsProps) {
@@ -37,14 +39,31 @@ module.exports = {
   },
   findAllByUser(userId) {
     return SchedulesBoughts.find({ user: userId, status: { $ne: 'DELETED' }})
-      .populate('user')
-      .populate('plan')
-      .exec();
+    .populate('plans')
+    .populate('users')
+    .exec()
   },
   findAllByPlan(planID) {
     return SchedulesBoughts.find({ plan: planID, status: { $ne: 'DELETED' } })
-      .populate('user')
-      .populate('plan')
+      .populate('users')
+      .populate('plans')
       .exec();
   },
-};
+
+  checkDifferences(userId){
+    SchedulesBoughts.find({ user: userId, status: { $ne: 'DELETED' }, availables: { $gt : 0 }}, (err, bougths) => {
+      bougths.map(async (item)=> {
+        if (item.availables > 0) {
+          const planData = await Plans.findById({ _id: item.plan })
+          const days = planData.expiration
+          const created = moment(item.date).format('YYYY-MM-DD')
+          const diff = moment().diff(created, 'days')
+
+          if (diff > days) {
+            SchedulesBoughts.update({ _id: item._id }, { $set: { availables: 0 }}, (err, data) => console.log(data))
+          }
+        }
+      })
+    })
+  }
+}

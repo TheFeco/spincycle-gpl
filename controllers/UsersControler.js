@@ -1,7 +1,9 @@
-const Users = require('../models/Users');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const _ = require('lodash');
+const Users = require('../models/Users')
+const Calendar = require('../models/Calendar')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const _ = require('lodash')
+const webpush = require('web-push')
 
 module.exports = {
   create(usersProps) {
@@ -59,5 +61,76 @@ module.exports = {
         return { data: null }
       }
     });
+  },
+
+  saveSuscription(_id, subscription) {
+    Users.findById({ _id }).then((user) => {
+      console.log('user', user)
+
+      if (!user.suscriptions.includes(JSON.stringify(subscription))) {
+        const suscriptions = user.suscriptions
+        suscriptions.push(JSON.stringify(subscription))
+
+        Users.update({ _id }, { $set: { suscriptions }}, (err, data) => {
+          console.log(err)
+          console.log(data)
+        });
+        return true
+      }
+
+      return true
+    })
+  },
+
+  sendCancelNotification(CalendarId, msg) {
+    Calendar.findById({ _id: CalendarId }).then(calendar => {
+
+      const subscriptions = calendar.subscriptions
+      subscriptions.map(user => {
+        Users.findById({ _id: user }).then(datauser => {
+          const payload = JSON.stringify({ title: msg });
+
+          datauser.suscriptions.map(sub => {
+            webpush
+              .sendNotification(JSON.parse(sub), payload)
+              .then(response => {
+                console.log(response)
+                console.log('Se mando una notificación')
+                return true
+              })
+              .catch(err => {
+                console.log(err)
+                console.log('NO se mando una notificación')
+                return false
+              });
+          })
+        })
+      })
+    })
+  },
+
+  sendNotification(users, type, msg) {
+    users.map(user => {
+      const userId = user._id
+
+      Users.findById({ _id: userId }).then(datauser => {
+        const payload = JSON.stringify({ title: msg });
+
+        datauser.suscriptions.map(sub => {
+          webpush
+            .sendNotification(JSON.parse(sub), payload)
+            .then(response => {
+              console.log(response)
+              console.log('Se mando una notificación')
+              return true
+            })
+            .catch(err => {
+              console.log(err)
+              console.log('NO se mando una notificación')
+              return false
+            });
+        })
+      })
+    })
   }
 };

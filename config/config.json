@@ -6,9 +6,9 @@
     "JWT_SECRET": "poijasdf98435jpgfdpoij3"
   },
   "development": {
-    "PORT": 3004,
-    "WSPORT": 4004,
-    "MONGODB_URI": "mongodb://spincycle.srv.monopolio.org:27017/dev_seccion",
+    "PORT": 3001,
+    "WSPORT": 4001,
+    "MONGODB_URI": "mongodb://localhost:27017/spincycle",
     "JWT_SECRET": "pojiaj234oi234oij234oij4"
   }
 }
