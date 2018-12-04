@@ -49,7 +49,6 @@ module.exports = {
     allCalendarById: (_, { calendarId }) => {
       return CalendarControler.findAllById(calendarId);
     },
-    // allCalendarById
     findAllSchedulesByWeek: (_, { initialDate, finishDate }) => {
       return CalendarControler.findAllSchedulesByWeek(initialDate, finishDate);
     },

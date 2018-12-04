@@ -7,7 +7,7 @@
   },
   "development": {
      "PORT": 3001,
-     "MONGODB_URI": "mongodb://localhost:27017/seccion35",
+     "MONGODB_URI": "mongodb://spin:spinAdm1N618@localhost:27017/seccion53",
      "JWT_SECRET": "pojiaj234oi234oij234oij4"
    }
 }

@@ -77,11 +77,7 @@ module.exports = {
       .exec();
   },
   findAllById(calendarId) {
-    return Calendar.find({ _id: calendarId })
-      .populate('schedule')
-      .populate('coach')
-      .populate('reservations')
-      .populate('user')
+    return Calendar.findOne({ _id: calendarId })
       .exec();
   },
   findAllReservations(reservationsID) {
