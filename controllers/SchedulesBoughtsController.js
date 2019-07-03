@@ -55,12 +55,41 @@ module.exports = {
       bougths.map(async (item)=> {
         if (item.availables > 0) {
           const planData = await Plans.findById({ _id: item.plan })
-          const days = planData.expiration
-          const created = moment(item.date).format('YYYY-MM-DD')
-          const diff = moment().diff(created, 'days')
 
-          if (diff > days) {
-            SchedulesBoughts.update({ _id: item._id }, { $set: { availables: 0 }}, (err, data) => console.log(data))
+          const { expiration, expiresOnFinalMonth, expiresOnDate, dateOfExpiration } = planData
+
+          let whenExpires = 'days'
+
+          if (expiresOnFinalMonth) whenExpires = 'final_month'
+          if (expiresOnDate) whenExpires = 'date'
+
+          if (whenExpires === 'days') {
+            var days = expiration
+
+            const created = moment(item.date).format('YYYY-MM-DD')
+            const diff = moment().diff(created, 'days')
+
+            if (diff > days) {
+              SchedulesBoughts.update({ _id: item._id }, { $set: { availables: 0 }}, (err, data) => console.log(data))
+            }
+          }
+
+          if (whenExpires === 'final_month') {
+            const created = moment(item.date).format('MM')
+            const currentMonth = moment().format('MM')
+
+            if (created !== currentMonth) {
+              SchedulesBoughts.update({ _id: item._id }, { $set: { availables: 0 }}, (err, data) => console.log(data))
+            }
+          }
+
+          if (whenExpires === 'date') {
+            const expiresDate = moment(dateOfExpiration).format('YYYY-MM-DD')
+            const diff = moment().diff(expiresDate, 'days')
+
+            if (diff > days) {
+              SchedulesBoughts.update({ _id: item._id }, { $set: { availables: 0 }}, (err, data) => console.log(data))
+            }
           }
         }
       })
