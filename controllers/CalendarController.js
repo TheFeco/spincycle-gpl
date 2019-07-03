@@ -106,7 +106,7 @@ module.exports = {
             Calendar.findOne({ schedule: schedule._id, dateOfCalendar: lastDate }, (error, calendar) => {
               this.findAllBySchedulesAndDate(schedule.id, date.date).then(existingSchedule => {
                 if (!existingSchedule) {
-                  defaultObject.coach = { _id: calendar.coach }
+                  defaultObject.coach = null // { _id: calendar.coach }
                   defaultObject.dateOfCalendar = date.date
                   defaultObject.schedule._id = schedule.id
                   this.create(defaultObject)
@@ -127,7 +127,7 @@ module.exports = {
       .populate('schedule')
       .populate('coach')
       .populate('reservations')
-      .populate('user')
+      .populate('users')
       .sort('dateOfCalendar')
       .exec();
   }

@@ -16,7 +16,7 @@ const schemaSchedulesBoughts = new Schema({
     ref: 'plans'
   },
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
-  created: Date,
+  created:{ type: Date, default: Date.now() },
 });
 
 const SchedulesBoughts = mongoose.model('schedules_boughts', schemaSchedulesBoughts);

@@ -57,6 +57,7 @@ module.exports = {
       return SchedulesBoughtsContoler.findAll();
     },
     allSchedulesBoughtsByUser: (_, { userId }) => {
+      SchedulesBoughtsContoler.checkDifferences(userId)
       return SchedulesBoughtsContoler.findAllByUser(userId);
     },
     allSchedulesBoughtsByPlan: (_, { planID }) => {
@@ -162,6 +163,17 @@ module.exports = {
     },
     schedule: (calendar) => {
       return SchedulesControler.find(calendar.schedule)
+    },
+    coach: (calendar) => {
+      return CoachsControler.find(calendar.coach)
+    },
+    subscriptions: (calendar) => {
+      return calendar.subscriptions.map(user => UsersControler.find(user))
+    }
+  },
+  Notifications: {
+    users: (notification) => {
+      return notification.users.map(user => UsersControler.find(user))
     }
   },
   /* This code saves the scalar type os Date found in this thred

@@ -33,8 +33,11 @@ module.exports = {
     Reservations.findByIdAndUpdate({ _id }, reservationsProps).exec().then(data => {
       CalendarController.find(calendarId).then(dataCalendar => {
         SchedulesBoughtsController.findAllByUser(data.user).then(boughts => {
-          const availables = boughts[0].availables + 1
-          SchedulesBoughtsController.edit(boughts[0]._id, { availables })
+          if (boughts.length > 0) {
+            const availables = boughts[boughts.length - 1].availables + 1
+            SchedulesBoughtsController.edit(boughts[boughts.length - 1]._id, { availables })
+          }
+          
           return CalendarController.edit(calendarId, { reservations: reservationsList })
         })
       })
@@ -49,6 +52,7 @@ module.exports = {
   findAllByCalendar() {
     Calendar.find({ status: { $ne: 'DELETED' }, dateOfCalendar: { $gte: new Date() }})
     .populate('reservations')
+    .populate('users')
     .exec()
   },
   findAllByUser(userId) {

@@ -27,6 +27,7 @@ module.exports = {
   findAll() {
     return Notifications.find({ status: { $ne: 'DELETED' } })
       .populate('user')
+      .sort({ created: 'desc' })
       .exec();
   },
   findAllBySchedules(userId) {

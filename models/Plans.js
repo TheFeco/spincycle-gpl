@@ -6,7 +6,7 @@ const schemaPlans = new Schema({
   name: String,
   price: Number,
   class: Number,
-
+  expiration: Number,
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
   created: Date
 });

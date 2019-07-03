@@ -21,7 +21,13 @@ const schemaCalendar = new Schema({
     }
   ],
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
-  created: Date
+  created: Date,
+  subscriptions: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'users'
+    }
+  ]
 });
 
 const Calendar = mongoose.model('calendar', schemaCalendar);
