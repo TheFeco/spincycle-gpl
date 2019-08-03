@@ -39,14 +39,14 @@ module.exports = {
   },
   findAllByUser(userId) {
     return SchedulesBoughts.find({ user: userId, status: { $ne: 'DELETED' }})
-    .populate('plans')
-    .populate('users')
+    .populate('plan')
+    .populate('user')
     .exec()
   },
   findAllByPlan(planID) {
     return SchedulesBoughts.find({ plan: planID, status: { $ne: 'DELETED' } })
-      .populate('users')
-      .populate('plans')
+      .populate('user')
+      .populate('plan')
       .exec();
   },
 
