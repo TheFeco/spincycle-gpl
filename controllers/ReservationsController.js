@@ -35,8 +35,8 @@ module.exports = {
       console.log({ dayReservation, expiresDate })
 
       if (dayReservation <= expiresDate) {
-        reservations.save().then(res => {
-          Reservations.findById(res._id).exec().then(data => {
+        return reservations.save().then(res => {
+          return Reservations.findById(res._id).exec().then(data => {
             const availables = available.availables - 1
             SchedulesBoughtsController.edit(available._id, { availables })
             var reservations = dataCalendar.reservations
@@ -56,8 +56,8 @@ module.exports = {
   create(reservationsProps, calendarId) {
     const reservations = new Reservations(reservationsProps);
 
-    CalendarController.find(calendarId).then(dataCalendar => {
-      SchedulesBoughtsController.findAllByUser(reservationsProps.user._id).then(boughts => {
+    return CalendarController.find(calendarId).then(dataCalendar => {
+      return SchedulesBoughtsController.findAllByUser(reservationsProps.user._id).then(boughts => {
         const withAvailables = boughts.filter(bought => bought.availables > 0)
 
         if (withAvailables.length > 0) {
