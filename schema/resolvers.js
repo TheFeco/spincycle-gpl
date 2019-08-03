@@ -137,8 +137,10 @@ module.exports = {
       return NotificationsController.edit(id, data);
     },
     /** Reservations */
-    addReservation: (_, { data, calendarId }) => {
-      return ReservationsController.create(data, calendarId);
+    addReservation: async (_, { data, calendarId }) => {
+      const response = await ReservationsController.create(data, calendarId);
+      console.log({ response })
+      return response
     },
     modifyReservation: (_, { data, id, calendarId, reservationsList }) => {
       return ReservationsController.edit(id, data, calendarId, reservationsList);
