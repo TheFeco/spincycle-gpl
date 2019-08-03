@@ -48,6 +48,10 @@ const typeDefs = `
     price: Float,
     class: Int,
     expiration: Int,
+    isUnlimited: Boolean,
+    expiresOnFinalMonth: Boolean,
+    expiresOnDate: Boolean,
+    dateOfExpiration: Date,
     status: String,
     created: Date
   }
@@ -144,6 +148,10 @@ const typeDefs = `
     price: Float,
     class: Int,
     expiration: Int,
+    isUnlimited: Boolean,
+    expiresOnFinalMonth: Boolean,
+    expiresOnDate: Boolean,
+    dateOfExpiration: Date,
     status: String,
     created: Date
  }

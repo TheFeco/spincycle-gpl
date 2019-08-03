@@ -7,6 +7,10 @@ const schemaPlans = new Schema({
   price: Number,
   class: Number,
   expiration: Number,
+  isUnlimited: Boolean,
+  expiresOnFinalMonth: Boolean,
+  expiresOnDate: Boolean,
+  dateOfExpiration: Date,
   status: { type: String, enum: ['ENABLE', 'DISABLED', 'DELETED'], default: 'ENABLE' },
   created: Date
 });
@@ -14,4 +18,3 @@ const schemaPlans = new Schema({
 const Plans = mongoose.model('plans', schemaPlans);
 
 module.exports = Plans;
-
