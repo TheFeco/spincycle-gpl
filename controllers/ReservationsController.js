@@ -59,6 +59,8 @@ module.exports = {
     return CalendarController.find(calendarId).then(dataCalendar => {
       return SchedulesBoughtsController.findAllByUser(reservationsProps.user._id).then(boughts => {
         const withAvailables = boughts.filter(bought => bought.availables > 0)
+	
+	console.log({ withAvailables })
 
         if (withAvailables.length > 0) {
           return this.checkAvailablePackage(withAvailables, 0, dataCalendar, reservations, calendarId)

@@ -36,6 +36,8 @@ module.exports = {
 
   login(credentials) {
     return Users.findOne({ user: credentials.user, status: 'ENABLE' }).then((user) => {
+
+	console.log({ user })
       if (user) {
         return bcrypt.compare(credentials.password, user.password).then((isMatch) => {
           return new Promise((resolve, reject) => {

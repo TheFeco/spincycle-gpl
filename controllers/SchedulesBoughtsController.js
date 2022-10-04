@@ -51,7 +51,7 @@ module.exports = {
   },
 
   checkDifferences(userId){
-    SchedulesBoughts.find({ user: userId, status: { $ne: 'DELETED' }, availables: { $gt : 0 }}, (err, bougths) => {
+   SchedulesBoughts.find({ user: userId, status: { $ne: 'DELETED' }, availables: { $gt : 0 }}, (err, bougths) => {
       bougths.map(async (item)=> {
         if (item.availables > 0) {
           const planData = await Plans.findById({ _id: item.plan })
@@ -93,6 +93,26 @@ module.exports = {
           }
         }
       })
-    })
-  }
+    });
+  // this.addMonths();
+  },
+  /*addMonths() {
+    SchedulesBoughts.find(
+      { date: { $gte: moment('2016-01-01'), $lt: moment('2016-12-31') }, availables: { $gt: 0 } },
+      (err, bougths) => {
+        console.log({ length: bougths.length });
+       console.log('entra una vez')
+        bougths.map((item, index) => {
+          const date = moment(item.date).add('1946', 'days');
+
+          // console.log({ user: item.user, index, av: item.availables, date: date._d });
+         /* SchedulesBoughts.update(
+             { _id: item._id },
+             { $set: { date: date._d } },
+             (err, data) => console.log(data)
+           );/
+        });
+      }
+    ).populate('user') /
+  },*/
 }
