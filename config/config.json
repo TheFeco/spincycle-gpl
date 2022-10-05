@@ -1,13 +1,13 @@
 {
   "test": {
-    "PORT": 3006,
+    "PORT": 3007,
     "WSPORT": 4006,
     "MONGODB_URI": "mongodb://localhost:27017/seccion35",
     "JWT_SECRET": "poijasdf98435jpgfdpoij3"
   },
   "development": {
-     "PORT": 3001,
-     "MONGODB_URI": "mongodb://spin:spinAdm1N618@localhost:27017/seccion53",
+     "PORT": 3003,
+     "MONGODB_URI": "mongodb://root:password@captain.dev.guiadehoy.com/seccion53",
      "JWT_SECRET": "pojiaj234oi234oij234oij4"
    }
 }
